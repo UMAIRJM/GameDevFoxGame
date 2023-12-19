@@ -13,6 +13,9 @@ public class enemyScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (chekPointScript.level2 == true) {
+            numberOfEnemy = 6;
+        }
         
         randomPositionsArray[0] = new Vector2(1.04f, 3.39f);
         randomPositionsArray[1] = new Vector2(13.1f, 1.68f);
@@ -27,13 +30,27 @@ public class enemyScript : MonoBehaviour
         int lengthOfArray = randomPositionsArray.Length - 1;
         
         int lengthofGameobjectArray = gameObjectArray.Length - 1;
-        
+        bool tagFlag = false;
+        int tagnumber = 6;
         for (int i = 0; i < numberOfEnemy; i++) {
+            int enemyNumber = i;
+            if (enemyNumber > 3) {
+                enemyNumber = i - 3;
+                tagFlag = true;
+            }
 
-            instantiatedEnemies[i] = Instantiate(gameObjectArray[i], randomPositionsArray[Random.Range(0, lengthOfArray+1)], Quaternion.Euler(0, rotationRange[Random.Range(0,2)],0));
+            instantiatedEnemies[i] = Instantiate(gameObjectArray[enemyNumber], randomPositionsArray[Random.Range(0, lengthOfArray+1)], Quaternion.Euler(0, rotationRange[Random.Range(0,2)],0));
             //Cannot use below random gameObjectArray as it was causing error related to reference as we are destroying the object
-//            instantiatedEnemies[i] = Instantiate(gameObjectArray[Random.Range(0, lengthofGameobjectArray + 1)], randomPositionsArray[Random.Range(0, lengthOfArray + 1)], Quaternion.Euler(0, rotationRange[Random.Range(0, 2)], 0));
+            //            instantiatedEnemies[i] = Instantiate(gameObjectArray[Random.Range(0, lengthofGameobjectArray + 1)], randomPositionsArray[Random.Range(0, lengthOfArray + 1)], Quaternion.Euler(0, rotationRange[Random.Range(0, 2)], 0));
+            if (tagFlag == true) {
+                
+                
+                int finaNumber = tagnumber + 1;
 
+                instantiatedEnemies[i].tag = "enemy" + finaNumber.ToString();
+                print(instantiatedEnemies[i].tag);
+                tagnumber++;
+            }
         }
 
 
@@ -47,7 +64,7 @@ public class enemyScript : MonoBehaviour
             position = instantiatedEnemies[i].transform.position;
             Quaternion rotation = instantiatedEnemies[i].transform.rotation;
             
-            if ((position.x <=3.695f&& position.x>=0.87f) && position.y <= -3.39f && rotation.eulerAngles.y == 180)
+            if ((position.x <=3.695f&& position.x>=0.87f) && position.y <= -3.39f && rotation.eulerAngles.y == 180f)
             {
                 
                 instantiatedEnemies[i].transform.position = new Vector2(0.87f, -2.86f);

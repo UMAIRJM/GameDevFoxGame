@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
@@ -79,9 +80,12 @@ public class playerController : MonoBehaviour
             
             instantiatedBulllet = Instantiate(bullet, newPosition, rotation);
         }
-       /* if (Input.GetKeyUp(KeyCode.Q)) {
-            Destroy(instantiatedBulllet);
-        }*/
+        /* if (Input.GetKeyUp(KeyCode.Q)) {
+             Destroy(instantiatedBulllet);
+         }*/
+        if (playerHealth == 0) {
+            SceneManager.LoadScene("gameOver");
+        }
 
         
 

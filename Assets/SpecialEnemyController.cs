@@ -30,7 +30,7 @@ public class SpecialEnemyController : MonoBehaviour
         float distance = Vector2.Distance(transform.position, target.position);
         if (distance < 4f)
         {
-
+    
             distanceFlag = true;
             
             if (sawFlag == true )
